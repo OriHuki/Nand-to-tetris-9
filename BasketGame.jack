@@ -53,7 +53,7 @@ class BasketGame {
         do Output.printString("Good Luck!");
 
         do Output.moveCursor(20, 21);
-        do Output.printString("Created by: Ori Hukima");
+        do Output.printString("Created by: Ori Hukima, Liel Uzan, Tzipora Feuchtwanger");
 
         do Output.moveCursor(22, 21);
         do Output.printString("Press [SPACE] to Start");
