@@ -1,0 +1,352 @@
+function Ball.new 0
+    push constant 6
+    call Memory.alloc 1
+    pop pointer 0
+    push argument 0
+    pop this 0
+    push argument 1
+    pop this 1
+    push constant 5
+    pop this 2
+    push constant 0
+    pop this 3
+    push constant 0
+    pop this 4
+    push constant 0
+    pop this 5
+    push pointer 0
+    return
+function Ball.dispose 0
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return
+function Ball.draw 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    push constant 6
+    gt
+    push this 0
+    push constant 505
+    lt
+    and
+    push this 1
+    push constant 6
+    gt
+    and
+    push this 1
+    push constant 249
+    lt
+    and
+    not
+    if-goto Ball_1
+    push constant 1
+    neg
+    call Screen.setColor 1
+    pop temp 0
+    push this 0
+    push this 1
+    push this 2
+    call Screen.drawCircle 3
+    pop temp 0
+    goto Ball_0
+label Ball_1
+label Ball_0
+    push constant 0
+    return
+function Ball.erase 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    push constant 6
+    gt
+    push this 0
+    push constant 505
+    lt
+    and
+    push this 1
+    push constant 6
+    gt
+    and
+    push this 1
+    push constant 249
+    lt
+    and
+    not
+    if-goto Ball_3
+    push constant 0
+    call Screen.setColor 1
+    pop temp 0
+    push this 0
+    push this 1
+    push this 2
+    call Screen.drawCircle 3
+    pop temp 0
+    goto Ball_2
+label Ball_3
+label Ball_2
+    push constant 0
+    return
+function Ball.setPosition 0
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    call Ball.erase 1
+    pop temp 0
+    push argument 1
+    pop this 0
+    push argument 2
+    pop this 1
+    push constant 0
+    pop this 3
+    push constant 0
+    pop this 4
+    push pointer 0
+    call Ball.draw 1
+    pop temp 0
+    push constant 0
+    return
+function Ball.shiftLeft 0
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    call Ball.erase 1
+    pop temp 0
+    push this 0
+    push constant 4
+    sub
+    pop this 0
+    push this 0
+    push constant 10
+    lt
+    not
+    if-goto Ball_5
+    push constant 10
+    pop this 0
+    goto Ball_4
+label Ball_5
+label Ball_4
+    push pointer 0
+    call Ball.draw 1
+    pop temp 0
+    push constant 0
+    return
+function Ball.shiftRight 0
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    call Ball.erase 1
+    pop temp 0
+    push this 0
+    push constant 4
+    add
+    pop this 0
+    push this 0
+    push constant 400
+    gt
+    not
+    if-goto Ball_7
+    push constant 400
+    pop this 0
+    goto Ball_6
+label Ball_7
+label Ball_6
+    push pointer 0
+    call Ball.draw 1
+    pop temp 0
+    push constant 0
+    return
+function Ball.shoot 0
+    push argument 0
+    pop pointer 0
+    push constant 7
+    push argument 1
+    push constant 15
+    call Math.divide 2
+    add
+    pop this 3
+    push argument 1
+    push constant 6
+    call Math.divide 2
+    push constant 3
+    add
+    neg
+    pop this 4
+    push constant 0
+    return
+function Ball.move 0
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    call Ball.erase 1
+    pop temp 0
+    push this 0
+    push this 3
+    add
+    pop this 0
+    push this 1
+    push this 4
+    add
+    pop this 1
+    push this 5
+    push constant 1
+    add
+    pop this 5
+    push this 5
+    push constant 1
+    gt
+    not
+    if-goto Ball_9
+    push this 4
+    push constant 1
+    add
+    pop this 4
+    push constant 0
+    pop this 5
+    goto Ball_8
+label Ball_9
+label Ball_8
+    push this 0
+    push constant 450
+    gt
+    push this 0
+    push constant 470
+    lt
+    and
+    not
+    if-goto Ball_11
+    push this 1
+    push constant 70
+    gt
+    push this 1
+    push constant 130
+    lt
+    and
+    not
+    if-goto Ball_13
+    push this 3
+    push constant 0
+    gt
+    not
+    if-goto Ball_15
+    push this 3
+    neg
+    pop this 3
+    push this 3
+    push constant 2
+    call Math.divide 2
+    pop this 3
+    push constant 450
+    pop this 0
+    goto Ball_14
+label Ball_15
+    push this 3
+    push constant 0
+    lt
+    not
+    if-goto Ball_17
+    push this 3
+    neg
+    pop this 3
+    push this 3
+    push constant 2
+    call Math.divide 2
+    pop this 3
+    push constant 470
+    pop this 0
+    goto Ball_16
+label Ball_17
+label Ball_16
+label Ball_14
+    goto Ball_12
+label Ball_13
+label Ball_12
+    goto Ball_10
+label Ball_11
+label Ball_10
+    push this 1
+    push this 2
+    push constant 2
+    add
+    lt
+    not
+    if-goto Ball_19
+    push this 2
+    push constant 2
+    add
+    pop this 1
+    push this 4
+    neg
+    pop this 4
+    goto Ball_18
+label Ball_19
+label Ball_18
+    push this 0
+    push this 2
+    push constant 2
+    add
+    lt
+    not
+    if-goto Ball_21
+    push this 2
+    push constant 2
+    add
+    pop this 0
+    push this 3
+    neg
+    pop this 3
+    goto Ball_20
+label Ball_21
+label Ball_20
+    push this 0
+    push constant 505
+    gt
+    not
+    if-goto Ball_23
+    push constant 505
+    pop this 0
+    push this 3
+    neg
+    pop this 3
+    goto Ball_22
+label Ball_23
+label Ball_22
+    push this 1
+    push constant 235
+    gt
+    not
+    if-goto Ball_25
+    push constant 235
+    pop this 1
+    push constant 0
+    pop this 3
+    push constant 0
+    pop this 4
+    push pointer 0
+    call Ball.draw 1
+    pop temp 0
+    push constant 0
+    return
+    goto Ball_24
+label Ball_25
+label Ball_24
+    push pointer 0
+    call Ball.draw 1
+    pop temp 0
+    push constant 1
+    neg
+    return
+function Ball.getX 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    return
+function Ball.getY 0
+    push argument 0
+    pop pointer 0
+    push this 1
+    return

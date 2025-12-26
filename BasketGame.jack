@@ -30,36 +30,32 @@ class BasketGame {
         return low + res;
     }
 
-    /** UPDATED SHORT & CLEAN OPENING SCREEN */
+    /** CENTERED OPENING SCREEN */
     method void showOpeningScreen() {
         var char key;
         do Screen.clearScreen();
 
-        // Tagline
-        do Output.moveCursor(5, 18);
+        do Output.moveCursor(5, 19);
         do Output.printString("Be a NBA player for 1 day!");
-        do Output.moveCursor(6, 18);
+        do Output.moveCursor(6, 19);
         do Output.printString("--------------------------");
 
-        // Concise Instructions
-        do Output.moveCursor(9, 20);
+        do Output.moveCursor(9, 21);
         do Output.printString("Move: [Left] / [Right]");
 
-        do Output.moveCursor(11, 20);
+        do Output.moveCursor(11, 25);
         do Output.printString("Shoot: [SPACE]");
 
-        do Output.moveCursor(14, 22);
+        do Output.moveCursor(14, 24);
         do Output.printString("Time: 60 Seconds");
 
-        // Good Luck message
-        do Output.moveCursor(17, 26);
+        do Output.moveCursor(17, 27);
         do Output.printString("Good Luck!");
 
-        // Credits
-        do Output.moveCursor(20, 24);
-        do Output.printString("Created by: Yair");
+        do Output.moveCursor(20, 21);
+        do Output.printString("Created by: Ori Hukima");
 
-        do Output.moveCursor(22, 20);
+        do Output.moveCursor(22, 21);
         do Output.printString("Press [SPACE] to Start");
 
         let key = 0;
@@ -97,19 +93,27 @@ class BasketGame {
         var int secondsLeft;
         let secondsLeft = timer / 40;
 
-        do Output.moveCursor(0, 0);
+        do Output.moveCursor(0, 2);
         do Output.printString("Score: ");
         do Output.printInt(score);
 
-        do Output.moveCursor(1, 0);
+        do Output.moveCursor(1, 2);
         do Output.printString("Time : ");
         do Output.printInt(secondsLeft);
         do Output.printString("  ");
 
-        do Output.moveCursor(0, 20);
+        do Output.moveCursor(0, 26);
         do Output.printString("Value: ");
         do Output.printInt(potentialPoints);
         do Output.printString(" pts ");
+        return;
+    }
+
+    /** CLEAN COURT DRAWING: Only the floor line */
+    method void drawCourt() {
+        do Screen.setColor(true);
+        // Floor Line ONLY
+        do Screen.drawLine(0, 240, 511, 240);
         return;
     }
 
@@ -139,8 +143,7 @@ class BasketGame {
 
     method void drawEnvironment() {
         do Screen.clearScreen();
-        do Screen.setColor(true);
-        do Screen.drawLine(0, 240, 511, 240); // Floor Line
+        do drawCourt();
         do drawFullBasket();
         do updateHUD();
         return;
@@ -148,13 +151,21 @@ class BasketGame {
 
     method void drawPowerMeter() {
         do Screen.setColor(false);
-        do Screen.drawRectangle(10, 50, 30, 150);
+        do Screen.drawRectangle(10, 100, 30, 200); // Erase inside
         do Screen.setColor(true);
-        do Screen.drawLine(10, 50, 30, 50);
-        do Screen.drawLine(10, 150, 30, 150);
-        do Screen.drawLine(10, 50, 10, 150);
-        do Screen.drawLine(30, 50, 30, 150);
-        do Screen.drawRectangle(12, 150 - power, 28, 150);
+        // Outline
+        do Screen.drawLine(10, 100, 30, 100);
+        do Screen.drawLine(10, 200, 30, 200);
+        do Screen.drawLine(10, 100, 10, 200);
+        do Screen.drawLine(30, 100, 30, 200);
+        // Fill Bar
+        do Screen.drawRectangle(12, 200 - power, 28, 200);
+        return;
+    }
+
+    method void erasePowerMeter() {
+        do Screen.setColor(false);
+        do Screen.drawRectangle(10, 100, 31, 201); // Wipe the area white
         return;
     }
 
@@ -186,9 +197,9 @@ class BasketGame {
 
         while (timer > 0) {
 
-            // Random Start Position
             let randomX = randRange(20, 380);
             do ball.setPosition(randomX, 200);
+            do drawCourt(); // Ensure floor is clean
 
             let power = 10;
             let powerGoingUp = true;
@@ -201,8 +212,14 @@ class BasketGame {
             while ((~positionLocked) & (timer > 0)) {
                 let key = Keyboard.keyPressed();
 
-                if (key = 130) { do ball.shiftLeft(); }
-                if (key = 132) { do ball.shiftRight(); }
+                if (key = 130) {
+                    do ball.shiftLeft();
+                    if (ball.getX() < 200) { do drawCourt(); }
+                }
+                if (key = 132) {
+                    do ball.shiftRight();
+                }
+
                 if (key = 32)  { let positionLocked = true; }
 
                 do calculateZone();
@@ -237,6 +254,9 @@ class BasketGame {
                 do Sys.wait(20);
             }
 
+            // --- Erase Meter ---
+            do erasePowerMeter();
+
             // --- PHASE 3: SHOOTING ---
             if (timer > 0) {
                 do ball.shoot(power);
@@ -245,12 +265,15 @@ class BasketGame {
                 while (moving & (timer > 0)) {
                     let moving = ball.move();
 
-                    // Keep Basket Solid
                     if (ball.getX() > 300) {
                         do drawFullBasket();
                     }
+                    if (ball.getY() > 180) {
+                        do drawCourt();
+                    }
 
-                    // Score Logic
+                    do ball.draw();
+
                     if ((ball.getY() < 100) & (ball.getX() > 428) & (ball.getX() < 455)) {
                         let wasAboveRim = true;
                     }

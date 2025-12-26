@@ -1,0 +1,1445 @@
+function BasketGame.new 0
+    push constant 7
+    call Memory.alloc 1
+    pop pointer 0
+    push constant 40
+    push constant 200
+    call Ball.new 2
+    pop this 0
+    push constant 0
+    pop this 1
+    push constant 1234
+    pop this 6
+    push pointer 0
+    return
+function BasketGame.dispose 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    call Ball.dispose 1
+    pop temp 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return
+function BasketGame.randRange 2
+    push argument 0
+    pop pointer 0
+    push argument 2
+    push argument 1
+    sub
+    pop local 0
+    push this 6
+    push constant 237
+    call Math.multiply 2
+    push constant 51
+    add
+    pop this 6
+    push this 6
+    push constant 0
+    lt
+    not
+    if-goto BasketGame_1
+    push this 6
+    neg
+    pop this 6
+    goto BasketGame_0
+label BasketGame_1
+label BasketGame_0
+    push this 6
+    push local 0
+    push this 6
+    push local 0
+    call Math.divide 2
+    call Math.multiply 2
+    sub
+    pop local 1
+    push argument 1
+    push local 1
+    add
+    return
+function BasketGame.showOpeningScreen 1
+    push argument 0
+    pop pointer 0
+    call Screen.clearScreen 0
+    pop temp 0
+    push constant 5
+    push constant 19
+    call Output.moveCursor 2
+    pop temp 0
+    push constant 26
+    call String.new 1
+    push constant 66
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 78
+    call String.appendChar 2
+    push constant 66
+    call String.appendChar 2
+    push constant 65
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 112
+    call String.appendChar 2
+    push constant 108
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 121
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 102
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 49
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 100
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 121
+    call String.appendChar 2
+    push constant 33
+    call String.appendChar 2
+    call Output.printString 1
+    pop temp 0
+    push constant 6
+    push constant 19
+    call Output.moveCursor 2
+    pop temp 0
+    push constant 26
+    call String.new 1
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    push constant 45
+    call String.appendChar 2
+    call Output.printString 1
+    pop temp 0
+    push constant 9
+    push constant 21
+    call Output.moveCursor 2
+    pop temp 0
+    push constant 22
+    call String.new 1
+    push constant 77
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 118
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 58
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 91
+    call String.appendChar 2
+    push constant 76
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 102
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 93
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 47
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 91
+    call String.appendChar 2
+    push constant 82
+    call String.appendChar 2
+    push constant 105
+    call String.appendChar 2
+    push constant 103
+    call String.appendChar 2
+    push constant 104
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 93
+    call String.appendChar 2
+    call Output.printString 1
+    pop temp 0
+    push constant 11
+    push constant 25
+    call Output.moveCursor 2
+    pop temp 0
+    push constant 14
+    call String.new 1
+    push constant 83
+    call String.appendChar 2
+    push constant 104
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 58
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 91
+    call String.appendChar 2
+    push constant 83
+    call String.appendChar 2
+    push constant 80
+    call String.appendChar 2
+    push constant 65
+    call String.appendChar 2
+    push constant 67
+    call String.appendChar 2
+    push constant 69
+    call String.appendChar 2
+    push constant 93
+    call String.appendChar 2
+    call Output.printString 1
+    pop temp 0
+    push constant 14
+    push constant 24
+    call Output.moveCursor 2
+    pop temp 0
+    push constant 16
+    call String.new 1
+    push constant 84
+    call String.appendChar 2
+    push constant 105
+    call String.appendChar 2
+    push constant 109
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 58
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 54
+    call String.appendChar 2
+    push constant 48
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 83
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 99
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 110
+    call String.appendChar 2
+    push constant 100
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    call Output.printString 1
+    pop temp 0
+    push constant 17
+    push constant 27
+    call Output.moveCursor 2
+    pop temp 0
+    push constant 10
+    call String.new 1
+    push constant 71
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 100
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 76
+    call String.appendChar 2
+    push constant 117
+    call String.appendChar 2
+    push constant 99
+    call String.appendChar 2
+    push constant 107
+    call String.appendChar 2
+    push constant 33
+    call String.appendChar 2
+    call Output.printString 1
+    pop temp 0
+    push constant 20
+    push constant 21
+    call Output.moveCursor 2
+    pop temp 0
+    push constant 22
+    call String.new 1
+    push constant 67
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 100
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 98
+    call String.appendChar 2
+    push constant 121
+    call String.appendChar 2
+    push constant 58
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 79
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 105
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 72
+    call String.appendChar 2
+    push constant 117
+    call String.appendChar 2
+    push constant 107
+    call String.appendChar 2
+    push constant 105
+    call String.appendChar 2
+    push constant 109
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    call Output.printString 1
+    pop temp 0
+    push constant 22
+    push constant 21
+    call Output.moveCursor 2
+    pop temp 0
+    push constant 22
+    call String.new 1
+    push constant 80
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 91
+    call String.appendChar 2
+    push constant 83
+    call String.appendChar 2
+    push constant 80
+    call String.appendChar 2
+    push constant 65
+    call String.appendChar 2
+    push constant 67
+    call String.appendChar 2
+    push constant 69
+    call String.appendChar 2
+    push constant 93
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 83
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    call Output.printString 1
+    pop temp 0
+    push constant 0
+    pop local 0
+label BasketGame_2
+    push local 0
+    push constant 32
+    eq
+    not
+    not
+    if-goto BasketGame_3
+    call Keyboard.keyPressed 0
+    pop local 0
+    push this 6
+    push constant 1
+    add
+    pop this 6
+    push this 6
+    push constant 30000
+    gt
+    not
+    if-goto BasketGame_5
+    push constant 0
+    pop this 6
+    goto BasketGame_4
+label BasketGame_5
+label BasketGame_4
+    goto BasketGame_2
+label BasketGame_3
+    push constant 0
+    return
+function BasketGame.showGameOver 0
+    push argument 0
+    pop pointer 0
+    call Screen.clearScreen 0
+    pop temp 0
+    push constant 150
+    push constant 80
+    push constant 360
+    push constant 180
+    call Screen.drawRectangle 4
+    pop temp 0
+    push constant 0
+    call Screen.setColor 1
+    pop temp 0
+    push constant 152
+    push constant 82
+    push constant 358
+    push constant 178
+    call Screen.drawRectangle 4
+    pop temp 0
+    push constant 1
+    neg
+    call Screen.setColor 1
+    pop temp 0
+    push constant 9
+    push constant 27
+    call Output.moveCursor 2
+    pop temp 0
+    push constant 10
+    call String.new 1
+    push constant 84
+    call String.appendChar 2
+    push constant 73
+    call String.appendChar 2
+    push constant 77
+    call String.appendChar 2
+    push constant 69
+    call String.appendChar 2
+    push constant 39
+    call String.appendChar 2
+    push constant 83
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 85
+    call String.appendChar 2
+    push constant 80
+    call String.appendChar 2
+    push constant 33
+    call String.appendChar 2
+    call Output.printString 1
+    pop temp 0
+    push constant 11
+    push constant 25
+    call Output.moveCursor 2
+    pop temp 0
+    push constant 13
+    call String.new 1
+    push constant 70
+    call String.appendChar 2
+    push constant 105
+    call String.appendChar 2
+    push constant 110
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 108
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 83
+    call String.appendChar 2
+    push constant 99
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 58
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    call Output.printString 1
+    pop temp 0
+    push this 1
+    call Output.printInt 1
+    pop temp 0
+    push constant 14
+    push constant 20
+    call Output.moveCursor 2
+    pop temp 0
+    push this 1
+    push constant 10
+    gt
+    not
+    if-goto BasketGame_7
+    push constant 15
+    call String.new 1
+    push constant 89
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 117
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 83
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 33
+    call String.appendChar 2
+    call Output.printString 1
+    pop temp 0
+    goto BasketGame_6
+label BasketGame_7
+    push this 1
+    push constant 4
+    gt
+    not
+    if-goto BasketGame_9
+    push constant 10
+    call String.new 1
+    push constant 87
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 108
+    call String.appendChar 2
+    push constant 108
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 68
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 110
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 33
+    call String.appendChar 2
+    call Output.printString 1
+    pop temp 0
+    goto BasketGame_8
+label BasketGame_9
+    push constant 14
+    call String.new 1
+    push constant 80
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 99
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 105
+    call String.appendChar 2
+    push constant 99
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 109
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 46
+    call String.appendChar 2
+    call Output.printString 1
+    pop temp 0
+label BasketGame_8
+label BasketGame_6
+    push constant 0
+    return
+function BasketGame.updateHUD 1
+    push argument 0
+    pop pointer 0
+    push this 2
+    push constant 40
+    call Math.divide 2
+    pop local 0
+    push constant 0
+    push constant 2
+    call Output.moveCursor 2
+    pop temp 0
+    push constant 7
+    call String.new 1
+    push constant 83
+    call String.appendChar 2
+    push constant 99
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 58
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    call Output.printString 1
+    pop temp 0
+    push this 1
+    call Output.printInt 1
+    pop temp 0
+    push constant 1
+    push constant 2
+    call Output.moveCursor 2
+    pop temp 0
+    push constant 7
+    call String.new 1
+    push constant 84
+    call String.appendChar 2
+    push constant 105
+    call String.appendChar 2
+    push constant 109
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 58
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    call Output.printString 1
+    pop temp 0
+    push local 0
+    call Output.printInt 1
+    pop temp 0
+    push constant 2
+    call String.new 1
+    push constant 32
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    call Output.printString 1
+    pop temp 0
+    push constant 0
+    push constant 26
+    call Output.moveCursor 2
+    pop temp 0
+    push constant 7
+    call String.new 1
+    push constant 86
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 108
+    call String.appendChar 2
+    push constant 117
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 58
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    call Output.printString 1
+    pop temp 0
+    push this 4
+    call Output.printInt 1
+    pop temp 0
+    push constant 5
+    call String.new 1
+    push constant 32
+    call String.appendChar 2
+    push constant 112
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    call Output.printString 1
+    pop temp 0
+    push constant 0
+    return
+function BasketGame.drawCourt 0
+    push argument 0
+    pop pointer 0
+    push constant 1
+    neg
+    call Screen.setColor 1
+    pop temp 0
+    push constant 0
+    push constant 240
+    push constant 511
+    push constant 240
+    call Screen.drawLine 4
+    pop temp 0
+    push constant 0
+    return
+function BasketGame.drawFullBasket 0
+    push argument 0
+    pop pointer 0
+    push constant 1
+    neg
+    call Screen.setColor 1
+    pop temp 0
+    push constant 495
+    push constant 160
+    push constant 511
+    push constant 240
+    call Screen.drawRectangle 4
+    pop temp 0
+    push constant 495
+    push constant 160
+    push constant 460
+    push constant 120
+    call Screen.drawLine 4
+    pop temp 0
+    push constant 495
+    push constant 170
+    push constant 460
+    push constant 130
+    call Screen.drawLine 4
+    pop temp 0
+    push constant 495
+    push constant 165
+    push constant 460
+    push constant 125
+    call Screen.drawLine 4
+    pop temp 0
+    push constant 458
+    push constant 70
+    push constant 462
+    push constant 130
+    call Screen.drawRectangle 4
+    pop temp 0
+    push constant 425
+    push constant 105
+    push constant 458
+    push constant 105
+    call Screen.drawLine 4
+    pop temp 0
+    push constant 425
+    push constant 105
+    push constant 432
+    push constant 125
+    call Screen.drawLine 4
+    pop temp 0
+    push constant 458
+    push constant 105
+    push constant 451
+    push constant 125
+    call Screen.drawLine 4
+    pop temp 0
+    push constant 432
+    push constant 125
+    push constant 451
+    push constant 125
+    call Screen.drawLine 4
+    pop temp 0
+    push constant 433
+    push constant 105
+    push constant 438
+    push constant 125
+    call Screen.drawLine 4
+    pop temp 0
+    push constant 441
+    push constant 105
+    push constant 446
+    push constant 125
+    call Screen.drawLine 4
+    pop temp 0
+    push constant 449
+    push constant 105
+    push constant 451
+    push constant 115
+    call Screen.drawLine 4
+    pop temp 0
+    push constant 435
+    push constant 125
+    push constant 440
+    push constant 105
+    call Screen.drawLine 4
+    pop temp 0
+    push constant 443
+    push constant 125
+    push constant 448
+    push constant 105
+    call Screen.drawLine 4
+    pop temp 0
+    push constant 451
+    push constant 125
+    push constant 456
+    push constant 105
+    call Screen.drawLine 4
+    pop temp 0
+    push constant 0
+    return
+function BasketGame.drawEnvironment 0
+    push argument 0
+    pop pointer 0
+    call Screen.clearScreen 0
+    pop temp 0
+    push pointer 0
+    call BasketGame.drawCourt 1
+    pop temp 0
+    push pointer 0
+    call BasketGame.drawFullBasket 1
+    pop temp 0
+    push pointer 0
+    call BasketGame.updateHUD 1
+    pop temp 0
+    push constant 0
+    return
+function BasketGame.drawPowerMeter 0
+    push argument 0
+    pop pointer 0
+    push constant 0
+    call Screen.setColor 1
+    pop temp 0
+    push constant 10
+    push constant 100
+    push constant 30
+    push constant 200
+    call Screen.drawRectangle 4
+    pop temp 0
+    push constant 1
+    neg
+    call Screen.setColor 1
+    pop temp 0
+    push constant 10
+    push constant 100
+    push constant 30
+    push constant 100
+    call Screen.drawLine 4
+    pop temp 0
+    push constant 10
+    push constant 200
+    push constant 30
+    push constant 200
+    call Screen.drawLine 4
+    pop temp 0
+    push constant 10
+    push constant 100
+    push constant 10
+    push constant 200
+    call Screen.drawLine 4
+    pop temp 0
+    push constant 30
+    push constant 100
+    push constant 30
+    push constant 200
+    call Screen.drawLine 4
+    pop temp 0
+    push constant 12
+    push constant 200
+    push this 3
+    sub
+    push constant 28
+    push constant 200
+    call Screen.drawRectangle 4
+    pop temp 0
+    push constant 0
+    return
+function BasketGame.erasePowerMeter 0
+    push argument 0
+    pop pointer 0
+    push constant 0
+    call Screen.setColor 1
+    pop temp 0
+    push constant 10
+    push constant 100
+    push constant 31
+    push constant 201
+    call Screen.drawRectangle 4
+    pop temp 0
+    push constant 0
+    return
+function BasketGame.calculateZone 1
+    push argument 0
+    pop pointer 0
+    push this 0
+    call Ball.getX 1
+    pop local 0
+    push local 0
+    push constant 180
+    lt
+    not
+    if-goto BasketGame_11
+    push constant 3
+    pop this 4
+    goto BasketGame_10
+label BasketGame_11
+    push local 0
+    push constant 320
+    lt
+    not
+    if-goto BasketGame_13
+    push constant 2
+    pop this 4
+    goto BasketGame_12
+label BasketGame_13
+    push constant 1
+    pop this 4
+label BasketGame_12
+label BasketGame_10
+    push constant 0
+    return
+function BasketGame.run 7
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    call BasketGame.showOpeningScreen 1
+    pop temp 0
+    push constant 2400
+    pop this 2
+    push constant 0
+    pop this 1
+    push pointer 0
+    call BasketGame.drawEnvironment 1
+    pop temp 0
+label BasketGame_14
+    push this 2
+    push constant 0
+    gt
+    not
+    if-goto BasketGame_15
+    push pointer 0
+    push constant 20
+    push constant 380
+    call BasketGame.randRange 3
+    pop local 6
+    push this 0
+    push local 6
+    push constant 200
+    call Ball.setPosition 3
+    pop temp 0
+    push pointer 0
+    call BasketGame.drawCourt 1
+    pop temp 0
+    push constant 10
+    pop this 3
+    push constant 1
+    neg
+    pop this 5
+    push constant 0
+    pop local 1
+    push constant 0
+    pop local 2
+    push constant 0
+    pop local 4
+    push constant 0
+    pop local 5
+label BasketGame_16
+    push local 1
+    not
+    push this 2
+    push constant 0
+    gt
+    and
+    not
+    if-goto BasketGame_17
+    call Keyboard.keyPressed 0
+    pop local 0
+    push local 0
+    push constant 130
+    eq
+    not
+    if-goto BasketGame_19
+    push this 0
+    call Ball.shiftLeft 1
+    pop temp 0
+    push this 0
+    call Ball.getX 1
+    push constant 200
+    lt
+    not
+    if-goto BasketGame_21
+    push pointer 0
+    call BasketGame.drawCourt 1
+    pop temp 0
+    goto BasketGame_20
+label BasketGame_21
+label BasketGame_20
+    goto BasketGame_18
+label BasketGame_19
+label BasketGame_18
+    push local 0
+    push constant 132
+    eq
+    not
+    if-goto BasketGame_23
+    push this 0
+    call Ball.shiftRight 1
+    pop temp 0
+    goto BasketGame_22
+label BasketGame_23
+label BasketGame_22
+    push local 0
+    push constant 32
+    eq
+    not
+    if-goto BasketGame_25
+    push constant 1
+    neg
+    pop local 1
+    goto BasketGame_24
+label BasketGame_25
+label BasketGame_24
+    push pointer 0
+    call BasketGame.calculateZone 1
+    pop temp 0
+    push this 2
+    push constant 1
+    sub
+    pop this 2
+    push this 2
+    push constant 15
+    and
+    push constant 0
+    eq
+    not
+    if-goto BasketGame_27
+    push pointer 0
+    call BasketGame.updateHUD 1
+    pop temp 0
+    goto BasketGame_26
+label BasketGame_27
+label BasketGame_26
+    push constant 20
+    call Sys.wait 1
+    pop temp 0
+    goto BasketGame_16
+label BasketGame_17
+label BasketGame_28
+    push local 0
+    push constant 0
+    eq
+    not
+    push this 2
+    push constant 0
+    gt
+    and
+    not
+    if-goto BasketGame_29
+    call Keyboard.keyPressed 0
+    pop local 0
+    push this 2
+    push constant 1
+    sub
+    pop this 2
+    push constant 5
+    call Sys.wait 1
+    pop temp 0
+    goto BasketGame_28
+label BasketGame_29
+label BasketGame_30
+    push local 2
+    not
+    push this 2
+    push constant 0
+    gt
+    and
+    not
+    if-goto BasketGame_31
+    call Keyboard.keyPressed 0
+    pop local 0
+    push this 5
+    not
+    if-goto BasketGame_33
+    push this 3
+    push constant 4
+    add
+    pop this 3
+    push this 3
+    push constant 95
+    gt
+    not
+    if-goto BasketGame_35
+    push constant 0
+    pop this 5
+    goto BasketGame_34
+label BasketGame_35
+label BasketGame_34
+    goto BasketGame_32
+label BasketGame_33
+    push this 3
+    push constant 4
+    sub
+    pop this 3
+    push this 3
+    push constant 5
+    lt
+    not
+    if-goto BasketGame_37
+    push constant 1
+    neg
+    pop this 5
+    goto BasketGame_36
+label BasketGame_37
+label BasketGame_36
+label BasketGame_32
+    push pointer 0
+    call BasketGame.drawPowerMeter 1
+    pop temp 0
+    push local 0
+    push constant 32
+    eq
+    not
+    if-goto BasketGame_39
+    push constant 1
+    neg
+    pop local 2
+    goto BasketGame_38
+label BasketGame_39
+label BasketGame_38
+    push this 2
+    push constant 1
+    sub
+    pop this 2
+    push this 2
+    push constant 15
+    and
+    push constant 0
+    eq
+    not
+    if-goto BasketGame_41
+    push pointer 0
+    call BasketGame.updateHUD 1
+    pop temp 0
+    goto BasketGame_40
+label BasketGame_41
+label BasketGame_40
+    push constant 20
+    call Sys.wait 1
+    pop temp 0
+    goto BasketGame_30
+label BasketGame_31
+    push pointer 0
+    call BasketGame.erasePowerMeter 1
+    pop temp 0
+    push this 2
+    push constant 0
+    gt
+    not
+    if-goto BasketGame_43
+    push this 0
+    push this 3
+    call Ball.shoot 2
+    pop temp 0
+    push constant 1
+    neg
+    pop local 3
+label BasketGame_44
+    push local 3
+    push this 2
+    push constant 0
+    gt
+    and
+    not
+    if-goto BasketGame_45
+    push this 0
+    call Ball.move 1
+    pop local 3
+    push this 0
+    call Ball.getX 1
+    push constant 300
+    gt
+    not
+    if-goto BasketGame_47
+    push pointer 0
+    call BasketGame.drawFullBasket 1
+    pop temp 0
+    goto BasketGame_46
+label BasketGame_47
+label BasketGame_46
+    push this 0
+    call Ball.getY 1
+    push constant 180
+    gt
+    not
+    if-goto BasketGame_49
+    push pointer 0
+    call BasketGame.drawCourt 1
+    pop temp 0
+    goto BasketGame_48
+label BasketGame_49
+label BasketGame_48
+    push this 0
+    call Ball.draw 1
+    pop temp 0
+    push this 0
+    call Ball.getY 1
+    push constant 100
+    lt
+    push this 0
+    call Ball.getX 1
+    push constant 428
+    gt
+    and
+    push this 0
+    call Ball.getX 1
+    push constant 455
+    lt
+    and
+    not
+    if-goto BasketGame_51
+    push constant 1
+    neg
+    pop local 5
+    goto BasketGame_50
+label BasketGame_51
+label BasketGame_50
+    push local 5
+    not
+    if-goto BasketGame_53
+    push this 0
+    call Ball.getY 1
+    push constant 105
+    gt
+    push this 0
+    call Ball.getX 1
+    push constant 428
+    gt
+    and
+    push this 0
+    call Ball.getX 1
+    push constant 455
+    lt
+    and
+    not
+    if-goto BasketGame_55
+    push constant 1
+    neg
+    pop local 4
+    push constant 0
+    pop local 5
+    goto BasketGame_54
+label BasketGame_55
+label BasketGame_54
+    goto BasketGame_52
+label BasketGame_53
+label BasketGame_52
+    push this 2
+    push constant 1
+    sub
+    pop this 2
+    push this 2
+    push constant 15
+    and
+    push constant 0
+    eq
+    not
+    if-goto BasketGame_57
+    push pointer 0
+    call BasketGame.updateHUD 1
+    pop temp 0
+    goto BasketGame_56
+label BasketGame_57
+label BasketGame_56
+    push constant 20
+    call Sys.wait 1
+    pop temp 0
+    goto BasketGame_44
+label BasketGame_45
+    push local 4
+    not
+    if-goto BasketGame_59
+    push this 1
+    push this 4
+    add
+    pop this 1
+    push constant 5
+    push constant 25
+    call Output.moveCursor 2
+    pop temp 0
+    push constant 8
+    call String.new 1
+    push constant 83
+    call String.appendChar 2
+    push constant 87
+    call String.appendChar 2
+    push constant 73
+    call String.appendChar 2
+    push constant 83
+    call String.appendChar 2
+    push constant 72
+    call String.appendChar 2
+    push constant 33
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 43
+    call String.appendChar 2
+    call Output.printString 1
+    pop temp 0
+    push this 4
+    call Output.printInt 1
+    pop temp 0
+    push constant 500
+    call Sys.wait 1
+    pop temp 0
+    push this 2
+    push constant 20
+    sub
+    pop this 2
+    push constant 5
+    push constant 25
+    call Output.moveCursor 2
+    pop temp 0
+    push constant 10
+    call String.new 1
+    push constant 32
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    call Output.printString 1
+    pop temp 0
+    goto BasketGame_58
+label BasketGame_59
+label BasketGame_58
+    goto BasketGame_42
+label BasketGame_43
+label BasketGame_42
+    goto BasketGame_14
+label BasketGame_15
+    push pointer 0
+    call BasketGame.showGameOver 1
+    pop temp 0
+    push constant 0
+    return
