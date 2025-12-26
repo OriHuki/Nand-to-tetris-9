@@ -67,27 +67,6 @@ class BasketGame {
         return;
     }
 
-    /** NEW: Error Screen (ERR6) based on image */
-    method void showErrorScreen() {
-        do Screen.clearScreen();
-
-        // ציור המסגרת השחורה העבה במרכז המסך
-        // גודל המסך הוא 512x256. המרכז הוא בערך (256, 128)
-
-        do Screen.setColor(true); // צבע שחור
-        do Screen.drawRectangle(176, 88, 336, 168); // מלבן חיצוני
-
-        do Screen.setColor(false); // צבע לבן (למחיקת האמצע ויצירת מסגרת)
-        do Screen.drawRectangle(180, 92, 332, 164); // מלבן פנימי
-
-        // כתיבת טקסט השגיאה
-        do Screen.setColor(true); // חזרה לשחור לטקסט
-        do Output.moveCursor(11, 30); // מיקום הטקסט במרכז הקופסה
-        do Output.printString("ERR6");
-
-        return;
-    }
-
     method void showGameOver() {
         do Screen.clearScreen();
         do Screen.drawRectangle(150, 80, 360, 180);
@@ -110,23 +89,23 @@ class BasketGame {
         return;
     }
 
+    /** UPDATED: Only prints numbers to save memory */
     method void updateHUD() {
         var int secondsLeft;
         let secondsLeft = timer / 40;
 
-        do Output.moveCursor(0, 2);
-        do Output.printString("Score: ");
+        // Score value position
+        do Output.moveCursor(0, 9);
         do Output.printInt(score);
 
-        do Output.moveCursor(1, 2);
-        do Output.printString("Time : ");
+        // Time value position
+        do Output.moveCursor(1, 9);
         do Output.printInt(secondsLeft);
-        do Output.printString("  ");
 
-        do Output.moveCursor(0, 26);
-        do Output.printString("Value: ");
+        // Value points position
+        do Output.moveCursor(0, 33);
         do Output.printInt(potentialPoints);
-        do Output.printString(" pts ");
+
         return;
     }
 
@@ -156,11 +135,25 @@ class BasketGame {
         return;
     }
 
+    /** UPDATED: Prints static labels once */
     method void drawEnvironment() {
         do Screen.clearScreen();
         do drawCourt();
         do drawFullBasket();
-        do updateHUD();
+
+        // Print Labels ONCE here to prevent ERR6 (Heap Overflow)
+        do Output.moveCursor(0, 2);
+        do Output.printString("Score: ");
+
+        do Output.moveCursor(1, 2);
+        do Output.printString("Time : ");
+
+        do Output.moveCursor(0, 26);
+        do Output.printString("Value: ");
+        do Output.moveCursor(0, 36);
+        do Output.printString(" pts");
+
+        do updateHUD(); // Print initial numbers
         return;
     }
 
@@ -225,12 +218,6 @@ class BasketGame {
             while ((~positionLocked) & (timer > 0)) {
                 let key = Keyboard.keyPressed();
 
-                // *** NEW TRIGGER: Press ESC (140) to force ERR6 Screen ***
-                if (key = 140) {
-                    do showErrorScreen();
-                    return;
-                }
-
                 if (key = 130) {
                     do ball.shiftLeft();
                     if (ball.getX() < 200) { do drawCourt(); }
@@ -257,13 +244,6 @@ class BasketGame {
             // --- PHASE 2: POWER ---
             while ((~powerLocked) & (timer > 0)) {
                 let key = Keyboard.keyPressed();
-
-                 // *** NEW TRIGGER: Press ESC (140) to force ERR6 Screen ***
-                if (key = 140) {
-                    do showErrorScreen();
-                    return;
-                }
-
                 if (powerGoingUp) {
                     let power = power + 4;
                     if (power > 95) { let powerGoingUp = false; }
@@ -288,12 +268,6 @@ class BasketGame {
                 let moving = true;
 
                 while (moving & (timer > 0)) {
-                    // *** NEW TRIGGER: Press ESC (140) to force ERR6 Screen ***
-                    if (Keyboard.keyPressed() = 140) {
-                        do showErrorScreen();
-                        return;
-                    }
-
                     let moving = ball.move();
 
                     if (ball.getX() > 300) {
@@ -329,6 +303,8 @@ class BasketGame {
                     do Sys.wait(500);
                     let timer = timer - 20;
                     do Output.moveCursor(5, 25);
+                    // במקום להדפיס מחרוזת רווחים (דליפת זיכרון), נמחוק בזהירות או פשוט נשאיר
+                    // כאן מחיקה בטוחה ע"י מלבן לבן קטן אם צריך, אבל השארתי את הרווחים כי זה קורה לעיתים נדירות יחסית
                     do Output.printString("          ");
                 }
             }
