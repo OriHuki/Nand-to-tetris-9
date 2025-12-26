@@ -1,0 +1,10 @@
+// Main.jack
+class Main {
+    function void main() {
+        var BasketGame game;
+        let game = BasketGame.new();
+        do game.run();
+        do game.dispose();
+        return;
+    }
+}
