@@ -35,7 +35,7 @@ class BasketGame {
         var char key;
         do Screen.clearScreen();
 
-        // Text: "Be a NBA player for 1 day!" (Length 26) -> (64-26)/2 = 19
+        // Text: "Be an NBA player for 1 day!" (Length 26) -> (64-26)/2 = 19
         do Output.moveCursor(5, 19);
         do Output.printString("Be a NBA player for 1 day!");
         do Output.moveCursor(6, 19);
