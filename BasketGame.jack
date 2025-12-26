@@ -35,34 +35,26 @@ class BasketGame {
         var char key;
         do Screen.clearScreen();
 
-        // Text: "Be an NBA player for 1 day!" (Length 26) -> (64-26)/2 = 19
         do Output.moveCursor(5, 19);
         do Output.printString("Be an NBA player for 1 day!");
         do Output.moveCursor(6, 19);
         do Output.printString("--------------------------");
 
-        // Text: "Move: [Left] / [Right]" (Length 22) -> (64-22)/2 = 21
         do Output.moveCursor(9, 21);
         do Output.printString("Move: [Left] / [Right]");
 
-        // Text: "Shoot: [SPACE]" (Length 14) -> (64-14)/2 = 25
         do Output.moveCursor(11, 25);
         do Output.printString("Shoot: [SPACE]");
 
-        // Text: "Time: 60 Seconds" (Length 16) -> (64-16)/2 = 24
         do Output.moveCursor(14, 24);
         do Output.printString("Time: 60 Seconds");
 
-        // Text: "Good Luck!" (Length 10) -> (64-10)/2 = 27
         do Output.moveCursor(17, 27);
         do Output.printString("Good Luck!");
 
-        // Credits: Total length is approx 55 chars. (64-55)/2 = 4
-        // We start at column 4 to fit everyone on one line.
         do Output.moveCursor(20, 4);
         do Output.printString("Created by: Ori Hukima, Liel Uzan, Tzipora Feuchtwanger");
 
-        // Text: "Press [SPACE] to Start" (Length 22) -> (64-22)/2 = 21
         do Output.moveCursor(22, 21);
         do Output.printString("Press [SPACE] to Start");
 
@@ -72,6 +64,27 @@ class BasketGame {
             let seed = seed + 1;
             if (seed > 30000) { let seed = 0; }
         }
+        return;
+    }
+
+    /** NEW: Error Screen (ERR6) based on image */
+    method void showErrorScreen() {
+        do Screen.clearScreen();
+
+        // ציור המסגרת השחורה העבה במרכז המסך
+        // גודל המסך הוא 512x256. המרכז הוא בערך (256, 128)
+
+        do Screen.setColor(true); // צבע שחור
+        do Screen.drawRectangle(176, 88, 336, 168); // מלבן חיצוני
+
+        do Screen.setColor(false); // צבע לבן (למחיקת האמצע ויצירת מסגרת)
+        do Screen.drawRectangle(180, 92, 332, 164); // מלבן פנימי
+
+        // כתיבת טקסט השגיאה
+        do Screen.setColor(true); // חזרה לשחור לטקסט
+        do Output.moveCursor(11, 30); // מיקום הטקסט במרכז הקופסה
+        do Output.printString("ERR6");
+
         return;
     }
 
@@ -117,26 +130,20 @@ class BasketGame {
         return;
     }
 
-    /** CLEAN COURT DRAWING: Only the floor line */
     method void drawCourt() {
         do Screen.setColor(true);
-        // Floor Line ONLY
         do Screen.drawLine(0, 240, 511, 240);
         return;
     }
 
     method void drawFullBasket() {
         do Screen.setColor(true);
-        // Base & Arm
         do Screen.drawRectangle(495, 160, 511, 240);
         do Screen.drawLine(495, 160, 460, 120);
         do Screen.drawLine(495, 170, 460, 130);
         do Screen.drawLine(495, 165, 460, 125);
-        // Backboard
         do Screen.drawRectangle(458, 70, 462, 130);
-        // Rim
         do Screen.drawLine(425, 105, 458, 105);
-        // Net
         do Screen.drawLine(425, 105, 432, 125);
         do Screen.drawLine(458, 105, 451, 125);
         do Screen.drawLine(432, 125, 451, 125);
@@ -159,21 +166,19 @@ class BasketGame {
 
     method void drawPowerMeter() {
         do Screen.setColor(false);
-        do Screen.drawRectangle(10, 100, 30, 200); // Erase inside
+        do Screen.drawRectangle(10, 100, 30, 200);
         do Screen.setColor(true);
-        // Outline
         do Screen.drawLine(10, 100, 30, 100);
         do Screen.drawLine(10, 200, 30, 200);
         do Screen.drawLine(10, 100, 10, 200);
         do Screen.drawLine(30, 100, 30, 200);
-        // Fill Bar
         do Screen.drawRectangle(12, 200 - power, 28, 200);
         return;
     }
 
     method void erasePowerMeter() {
         do Screen.setColor(false);
-        do Screen.drawRectangle(10, 100, 31, 201); // Wipe the area white
+        do Screen.drawRectangle(10, 100, 31, 201);
         return;
     }
 
@@ -207,7 +212,7 @@ class BasketGame {
 
             let randomX = randRange(20, 380);
             do ball.setPosition(randomX, 200);
-            do drawCourt(); // Ensure floor is clean
+            do drawCourt();
 
             let power = 10;
             let powerGoingUp = true;
@@ -219,6 +224,12 @@ class BasketGame {
             // --- PHASE 1: POSITIONING ---
             while ((~positionLocked) & (timer > 0)) {
                 let key = Keyboard.keyPressed();
+
+                // *** NEW TRIGGER: Press ESC (140) to force ERR6 Screen ***
+                if (key = 140) {
+                    do showErrorScreen();
+                    return;
+                }
 
                 if (key = 130) {
                     do ball.shiftLeft();
@@ -246,6 +257,13 @@ class BasketGame {
             // --- PHASE 2: POWER ---
             while ((~powerLocked) & (timer > 0)) {
                 let key = Keyboard.keyPressed();
+
+                 // *** NEW TRIGGER: Press ESC (140) to force ERR6 Screen ***
+                if (key = 140) {
+                    do showErrorScreen();
+                    return;
+                }
+
                 if (powerGoingUp) {
                     let power = power + 4;
                     if (power > 95) { let powerGoingUp = false; }
@@ -262,7 +280,6 @@ class BasketGame {
                 do Sys.wait(20);
             }
 
-            // --- Erase Meter ---
             do erasePowerMeter();
 
             // --- PHASE 3: SHOOTING ---
@@ -271,6 +288,12 @@ class BasketGame {
                 let moving = true;
 
                 while (moving & (timer > 0)) {
+                    // *** NEW TRIGGER: Press ESC (140) to force ERR6 Screen ***
+                    if (Keyboard.keyPressed() = 140) {
+                        do showErrorScreen();
+                        return;
+                    }
+
                     let moving = ball.move();
 
                     if (ball.getX() > 300) {
