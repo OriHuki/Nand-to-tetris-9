@@ -1,4 +1,3 @@
-// Main.jack
 class Main {
     function void main() {
         var BasketGame game;

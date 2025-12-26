@@ -72,29 +72,42 @@ class BasketGame {
         return;
     }
 
+    // --- תיקון פונקציית מסך הסיום ---
     method void showGameOver() {
         do Screen.clearScreen();
-        do Screen.drawRectangle(150, 80, 360, 180);
+
+        // הגדלתי מעט את המסגרת כדי שהטקסט לא יהיה צפוף
+        do Screen.drawRectangle(130, 70, 380, 190); // מסגרת חיצונית גדולה יותר
         do Screen.setColor(false);
-        do Screen.drawRectangle(152, 82, 358, 178);
+        do Screen.drawRectangle(132, 72, 378, 188); // מסגרת פנימית לבנה
         do Screen.setColor(true);
 
         do Output.moveCursor(9, 27);
         do Output.printString("TIME'S UP!");
-        do Output.moveCursor(11, 25);
+
+        do Output.moveCursor(11, 24); // הזזה קלה למרכוז טוב יותר
         do Output.printString("Final Score: ");
         do Output.printInt(score);
-        do Output.moveCursor(14, 20);
 
-        if (score > 10) { do Output.printString("You are a Star!"); }
+        // חישוב מיקום מדוייק עבור כל הודעה כדי שתהיה במרכז
+        if (score > 10) {
+            do Output.moveCursor(14, 24); // מרוכז עבור "You are a Star!"
+            do Output.printString("You are a Star!");
+        }
         else {
-            if (score > 4) { do Output.printString("Well Done!"); }
-            else { do Output.printString("Practice more."); }
+            if (score > 4) {
+                do Output.moveCursor(14, 27); // מרוכז עבור "Well Done!"
+                do Output.printString("Well Done!");
+            }
+            else {
+                do Output.moveCursor(14, 25); // מרוכז עבור "Practice more."
+                do Output.printString("Practice more.");
+            }
         }
         return;
     }
+    // --------------------------------
 
-    /** פונקציה זו מדפיסה רק מספרים כדי לחסוך בזיכרון */
     method void updateHUD() {
         var int secondsLeft;
         let secondsLeft = timer / 40;
@@ -142,7 +155,6 @@ class BasketGame {
         do drawCourt();
         do drawFullBasket();
 
-        // הדפסת הטקסטים הקבועים פעם אחת בלבד
         do Output.moveCursor(0, 2);
         do Output.printString("Score: ");
 
