@@ -1,0 +1,135 @@
+// Ball.jack
+class Ball {
+    field int x, y;
+    field int r;
+    field int vx, vy;
+    field int gravityCounter;
+
+    constructor Ball new(int startX, int startY) {
+        let x = startX;
+        let y = startY;
+        let r = 5; // Radius
+        let vx = 0;
+        let vy = 0;
+        let gravityCounter = 0;
+        return this;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    /** Draws the ball (Safe mode to prevent Error 9) */
+    method void draw() {
+        if ((x > 6) & (x < 505) & (y > 6) & (y < 249)) {
+            do Screen.setColor(true);
+            do Screen.drawCircle(x, y, r);
+        }
+        return;
+    }
+
+    /** Erases the ball */
+    method void erase() {
+        if ((x > 6) & (x < 505) & (y > 6) & (y < 249)) {
+            do Screen.setColor(false);
+            do Screen.drawCircle(x, y, r);
+        }
+        return;
+    }
+
+    /** Sets ball position directly (used for random start) */
+    method void setPosition(int newX, int newY) {
+        do erase();
+        let x = newX;
+        let y = newY;
+        let vx = 0;
+        let vy = 0;
+        do draw();
+        return;
+    }
+
+    // --- Player Controls (Before shooting) ---
+
+    method void shiftLeft() {
+        do erase();
+        let x = x - 4;
+        if (x < 10) { let x = 10; }
+        do draw();
+        return;
+    }
+
+    method void shiftRight() {
+        do erase();
+        let x = x + 4;
+        // Limit movement so player cannot walk into the basket pole
+        if (x > 400) { let x = 400; }
+        do draw();
+        return;
+    }
+
+    // --- Physics & Shooting ---
+
+    method void shoot(int power) {
+        // Horizontal speed
+        let vx = 7 + (power / 15);
+        // Vertical arc (Negative is UP)
+        let vy = -((power / 6) + 3);
+        return;
+    }
+
+    /** Updates ball position for one frame. Returns true if moving. */
+    method boolean move() {
+        do erase();
+
+        let x = x + vx;
+        let y = y + vy;
+
+        // Apply Gravity
+        let gravityCounter = gravityCounter + 1;
+        if (gravityCounter > 1) {
+            let vy = vy + 1;
+            let gravityCounter = 0;
+        }
+
+        // --- COLLISIONS ---
+
+        // 1. BACKBOARD COLLISION LOGIC
+        // Board X range: approx 453-465 (Face of board)
+        // Board Y range: 70-130
+        if ((x > 453) & (x < 465)) {
+            if ((y > 70) & (y < 130)) {
+                // If hitting the board from the front
+                if (vx > 0) {
+                    let vx = -vx;      // Bounce back
+                    let vx = vx / 2;   // Dampen speed (lose energy)
+                    let x = 453;       // Push outside to prevent sticking
+                }
+            }
+        }
+
+        // 2. Ceiling Bounce
+        if (y < (r + 2)) { let y = r + 2; let vy = -vy; }
+
+        // 3. Left Wall Bounce
+        if (x < (r + 2)) { let x = r + 2; let vx = -vx; }
+
+        // 4. Right Wall Bounce
+        if (x > 505)     { let x = 505;   let vx = -vx; }
+
+        // 5. Floor (Stop moving)
+        if (y > 235) {
+            let y = 235;
+            let vx = 0;
+            let vy = 0;
+            do draw();
+            return false; // Stopped
+        }
+
+        do draw();
+        return true;
+    }
+
+    method int getX() { return x; }
+    method int getY() { return y; }
+}
