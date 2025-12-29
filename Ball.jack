@@ -1,28 +1,30 @@
 class Ball {
     field int x, y;
-    field int r;
+    field int r; //radios.
     field int vx, vy;
     field int gravityCounter;
 
     constructor Ball new(int startX, int startY) {
-        let x = startX;
-        let y = startY;
-        let r = 5; // Radius
-        let vx = 0;
-        let vy = 0;
-        let gravityCounter = 0;
+        let x = startX; //Set x.
+        let y = startY; //Set y.
+        let r = 5; //Radius.
+        let vx = 0; //Horizontal speed.
+        let vy = 0; //Vertical speed.
+        let gravityCounter = 0; //Gravity timer.
         return this;
     }
 
+    //Free object.
     method void dispose() {
         do Memory.deAlloc(this);
         return;
     }
 
-    /** Draws the ball */
+    //Draw ball on the screen.
     method void draw() {
+        //Within the screen.
         if ((x > 6) & (x < 505) & (y > 6) & (y < 249)) {
-            do Screen.setColor(true);
+            do Screen.setColor(true); //Set black.
             do Screen.drawCircle(x, y, r);
         }
         return;
@@ -30,24 +32,25 @@ class Ball {
 
     /** Erases the ball */
     method void erase() {
+        //Within the screen.
         if ((x > 6) & (x < 505) & (y > 6) & (y < 249)) {
-            do Screen.setColor(false);
+            do Screen.setColor(false);//Set white.
             do Screen.drawCircle(x, y, r);
         }
         return;
     }
 
-    /** Sets ball position directly */
+    //Set ball position.
     method void setPosition(int newX, int newY) {
-        do erase();
+        do erase();//Erase current ball.
         let x = newX;
         let y = newY;
         let vx = 0;
         let vy = 0;
-        do draw();
+        do draw();//Draw new ball.
         return;
     }
-
+    //Move the ball to the left.
     method void shiftLeft() {
         do erase();
         let x = x - 4;
@@ -55,7 +58,7 @@ class Ball {
         do draw();
         return;
     }
-
+    //Move the ball to the right.
     method void shiftRight() {
         do erase();
         let x = x + 4;
@@ -63,30 +66,28 @@ class Ball {
         do draw();
         return;
     }
-
+    //Sets speed based on a power value.
     method void shoot(int power) {
         let vx = 7 + (power / 15);
         let vy = -((power / 6) + 3);
         return;
     }
 
-    /** Updates ball position with SOLID BACKBOARD logic */
+    //Updates ball position with SOLID BACKBOARD logic.
     method boolean move() {
         do erase();
-
         let x = x + vx;
         let y = y + vy;
 
-        // Apply Gravity
+        //Apply Gravity
         let gravityCounter = gravityCounter + 1;
         if (gravityCounter > 1) {
             let vy = vy + 1;
             let gravityCounter = 0;
         }
 
-        // --- COLLISIONS ---
-
-        // 1. SOLID BACKBOARD LOGIC (The Fix)
+        //COLLISIONS
+        //1.SOLID BACKBOARD LOGIC (The Fix).
         // Board area: X between 453 and 468, Y between 70 and 130
         if ((x > 450) & (x < 470)) {
             if ((y > 70) & (y < 130)) {
@@ -108,16 +109,16 @@ class Ball {
             }
         }
 
-        // 2. Ceiling Bounce
+        //2.Ceiling Bounce.
         if (y < (r + 2)) { let y = r + 2; let vy = -vy; }
 
-        // 3. Left Wall Bounce
+        //3.Left Wall Bounce.
         if (x < (r + 2)) { let x = r + 2; let vx = -vx; }
 
-        // 4. Right Wall Bounce
+        //4.Right Wall Bounce.
         if (x > 505)     { let x = 505;   let vx = -vx; }
 
-        // 5. Floor (Stop moving)
+        //5.Floor (Stop moving).
         if (y > 235) {
             let y = 235;
             let vx = 0;
@@ -130,6 +131,10 @@ class Ball {
         return true;
     }
 
-    method int getX() { return x; }
-    method int getY() { return y; }
+    method int getX() {
+        return x;
+    }
+    method int getY() {
+        return y;
+    }
 }
